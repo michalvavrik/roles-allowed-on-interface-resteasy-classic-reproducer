@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 class GreetingResourceTest {
     @Test
-    void testHelloEndpoint() {
+    void testHiEndpoint() {
         var dto = new GreetingDTO();
         dto.setGreeting("Hello World");
         given()
@@ -44,4 +44,71 @@ class GreetingResourceTest {
                 .statusCode(403);
     }
 
+    @Test
+    void testHeyEndpoint() {
+        var dto = new GreetingDTO();
+        dto.setGreeting("Hello World");
+        given()
+                .auth().preemptive().basic("admin", "admin")
+                .body(dto)
+                .contentType(ContentType.JSON)
+                .when().post("/hello/hey")
+                .then()
+                .statusCode(403);
+        given()
+                .auth().preemptive().basic("admin", "admin")
+                .body("#@$^^@")
+                .contentType(ContentType.JSON)
+                .when().post("/hello/hey")
+                .then()
+                .statusCode(403);
+        given()
+                .auth().preemptive().basic("user", "user")
+                .body("#@$^^@")
+                .contentType(ContentType.JSON)
+                .when().post("/hello/hey")
+                .then()
+                .statusCode(403);
+        given()
+                .auth().preemptive().basic("user", "user")
+                .body(dto)
+                .contentType(ContentType.JSON)
+                .when().post("/hello/hey")
+                .then()
+                .statusCode(403);
+    }
+
+    @Test
+    void testHoEndpoint() {
+        var dto = new GreetingDTO();
+        dto.setGreeting("Hello World");
+        given()
+                .auth().preemptive().basic("admin", "admin")
+                .body(dto)
+                .contentType(ContentType.JSON)
+                .when().post("/hello/ho")
+                .then()
+                .statusCode(403);
+        given()
+                .auth().preemptive().basic("admin", "admin")
+                .body("#@$^^@")
+                .contentType(ContentType.JSON)
+                .when().post("/hello/ho")
+                .then()
+                .statusCode(403);
+        given()
+                .auth().preemptive().basic("user", "user")
+                .body("#@$^^@")
+                .contentType(ContentType.JSON)
+                .when().post("/hello/ho")
+                .then()
+                .statusCode(403);
+        given()
+                .auth().preemptive().basic("user", "user")
+                .body(dto)
+                .contentType(ContentType.JSON)
+                .when().post("/hello/ho")
+                .then()
+                .statusCode(403);
+    }
 }
