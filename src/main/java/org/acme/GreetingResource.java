@@ -2,8 +2,10 @@ package org.acme;
 
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
+@Path("/hello")
 public class GreetingResource implements GreetingInterface {
 
     @Override

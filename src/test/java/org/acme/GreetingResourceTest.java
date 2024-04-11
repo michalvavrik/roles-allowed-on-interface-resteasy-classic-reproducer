@@ -19,15 +19,14 @@ class GreetingResourceTest {
                 .contentType(ContentType.JSON)
           .when().post("/hello/hi")
           .then()
-             .statusCode(200)
-             .body(is("hi"));
+                .statusCode(403);
         given()
                 .auth().preemptive().basic("admin", "admin")
                 .body("#@$^^@")
                 .contentType(ContentType.JSON)
                 .when().post("/hello/hi")
                 .then()
-                .statusCode(500);
+                .statusCode(403);
         given()
                 .auth().preemptive().basic("user", "user")
                 .body("#@$^^@")
@@ -54,14 +53,14 @@ class GreetingResourceTest {
                 .contentType(ContentType.JSON)
                 .when().post("/hello/hey")
                 .then()
-                .statusCode(403);
+                .statusCode(200);
         given()
                 .auth().preemptive().basic("admin", "admin")
                 .body("#@$^^@")
                 .contentType(ContentType.JSON)
                 .when().post("/hello/hey")
                 .then()
-                .statusCode(403);
+                .statusCode(500);
         given()
                 .auth().preemptive().basic("user", "user")
                 .body("#@$^^@")
@@ -88,27 +87,27 @@ class GreetingResourceTest {
                 .contentType(ContentType.JSON)
                 .when().post("/hello/ho")
                 .then()
-                .statusCode(403);
+                .statusCode(200);
         given()
                 .auth().preemptive().basic("admin", "admin")
                 .body("#@$^^@")
                 .contentType(ContentType.JSON)
                 .when().post("/hello/ho")
                 .then()
-                .statusCode(403);
+                .statusCode(500);
         given()
                 .auth().preemptive().basic("user", "user")
                 .body("#@$^^@")
                 .contentType(ContentType.JSON)
                 .when().post("/hello/ho")
                 .then()
-                .statusCode(403);
+                .statusCode(500);
         given()
                 .auth().preemptive().basic("user", "user")
                 .body(dto)
                 .contentType(ContentType.JSON)
                 .when().post("/hello/ho")
                 .then()
-                .statusCode(403);
+                .statusCode(200);
     }
 }
